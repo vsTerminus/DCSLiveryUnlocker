@@ -23,6 +23,8 @@ find({wanted => \&wanted, no_chdir => 0}, $dir);
 
 sub wanted
 {
+    return if ( $File::Find::dir =~ /DCS-AllSkinsUnlocked/ );
+
 	if ( $_ eq 'description.lua' )
 	{
 		say $File::Find::name if -f and $_ eq 'description.lua';
