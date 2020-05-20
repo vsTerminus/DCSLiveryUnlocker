@@ -8,15 +8,12 @@ use warnings;
 use File::Find;
 use File::Slurp qw(edit_file_lines);
 use Term::ReadKey;
+use Tk;
 
 my $dir = $ARGV[0];
-unless (defined $dir)
-{
-	$dir = '_OvGME' if ( -d '_OvGME' );
-	$dir = '_JSGME' if ( -d '_JSGME' );
-}
 
-die "Could not find mods directory to scan. Usage: $0 '_OvGME folder name'" unless defined $dir and -d $dir;
+$dir = Tk::MainWindow->new->chooseDirectory unless defined $dir;
+
 say "Scanning mods directory: $dir";
 
 find({wanted => \&wanted, no_chdir => 0}, $dir);
